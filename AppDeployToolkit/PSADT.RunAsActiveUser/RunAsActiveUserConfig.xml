@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RunAsActiveUser_Config>
+<!--# LICENSE #
+	PowerShell App Deployment Toolkit - Run As Active User Extension.
+	Copyright (C) 2023 - Leonardo Franco Maragna.
+	https://github.com/LFM8787/PSADT.RunAsActiveUser
+-->
+	<!--Configuration File Details-->
+	<Config_File>
+		<Config_Version>1.0</Config_Version>
+		<Config_Date>2023/03/28</Config_Date>
+	</Config_File>
+
+	<!--Run As Active User General Options-->
+	<RunAsActiveUser_Options>
+		<ReplaceOriginalExecuteProcessAsUser>True</ReplaceOriginalExecuteProcessAsUser>
+		<!-- Replaces the original Execute-ProcessAsUser function. -->
+		<FallbackToOriginalFunctionOnError>True</FallbackToOriginalFunctionOnError>
+		<!-- Fallbacks to the original Execute-ProcessAsUser function if any error occurs. -->
+	</RunAsActiveUser_Options>
+	<!--Run As Active User General Options-->
+
+</RunAsActiveUser_Config>
