@@ -6,7 +6,6 @@ Extension for PowerShell App Deployment Toolkit that executes processes or scrip
 - No need to change scripts, wraps original **Execute-ProcessAsUser** function but without UserName selection.
 - If executed under USER context, the function uses **Execute-Process**, no interpersonate needed.
 - No need to save scripts or to create files executed by scheduled tasks.
-- Functions tested under SCCM, Intune and normal Scheduled Task.
 - Executes scriptblocks on the fly if less than 32 KBytes (Windows 10), 8 KBytes (Windows 8.0 and under).
 - If size exceed the maximum, the temporary script is saved encrypted by 32 KB key and deleted during execution.
 - The execution of interpersonated processes returns the standard output of the invoked processes.
