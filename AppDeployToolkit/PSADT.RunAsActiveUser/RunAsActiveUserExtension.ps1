@@ -14,8 +14,8 @@
 	70607: Remove-Comments - Error ocurred when removing comments from source file/scriptblock.
 
 	Author:  Leonardo Franco Maragna
-	Version: 1.0
-	Date:    2023/03/28
+	Version: 1.0.1
+	Date:    2023/04/14
 #>
 [CmdletBinding()]
 Param (
@@ -29,8 +29,8 @@ Param (
 ## Variables: Extension Info
 $RunAsActiveUserExtName = "RunAsActiveUserExtension"
 $RunAsActiveUserExtScriptFriendlyName = "Run As Active User Extension"
-$RunAsActiveUserExtScriptVersion = "1.0"
-$RunAsActiveUserExtScriptDate = "2023/03/28"
+$RunAsActiveUserExtScriptVersion = "1.0.1"
+$RunAsActiveUserExtScriptDate = "2023/04/14"
 $RunAsActiveUserExtSubfolder = "PSADT.RunAsActiveUser"
 $RunAsActiveUserExtCustomTypesName = "RunAsActiveUserExtension.cs"
 $RunAsActiveUserExtConfigFileName = "RunAsActiveUserConfig.xml"
@@ -288,6 +288,8 @@ Function Invoke-ProcessAsActiveUser {
 		#region Function reusable ScriptBlocks
 		## Defines the PowerShell executable to use
 		[scriptblock]$DefinePowerShellPath = {
+			$CurrentProcessPath = (Get-Process -Id ([System.Diagnostics.Process]::GetCurrentProcess().Id)).Path
+
 			if ($UseMicrosoftPowerShell) {
 				[IO.FileInfo]$Path = (Get-ChildItem -Path "$($envProgramFiles)*\PowerShell\*" -Recurse -Include "pwsh.exe").FullName | Select-Object -First 1
 				if (-not (Test-Path -LiteralPath $Path -PathType Leaf -ErrorAction SilentlyContinue)) {
@@ -301,11 +303,11 @@ Function Invoke-ProcessAsActiveUser {
 				}
 				$UseMicrosoftPowerShell = $false
 			}
-			if ($UseWindowsPowerShell) {
+			if ($UseWindowsPowerShell -or ($CurrentProcessPath -like "*powershell_ise*")) {
 				[IO.FileInfo]$Path = "$($envSystem32Directory)\WindowsPowerShell\v1.0\powershell.exe"
 			}
 			elseif (-not $UseMicrosoftPowerShell) {
-				[IO.FileInfo]$Path = (Get-Process -Id ([System.Diagnostics.Process]::GetCurrentProcess().Id)).Path
+				[IO.FileInfo]$Path = $CurrentProcessPath
 			}
 		}
 
